@@ -8,7 +8,6 @@ import matplotlib.mlab as mlab
 
 isdebug = True
 
-# 指定k个高斯分布参数，这里指定k=2。注意2个高斯分布具有相同均标准差Sigma，均值分别为Mu1,Mu2。  
 def InitData(Sigma,mu_r,k,N):  
 	global X  
 	global Mu  
@@ -76,7 +75,7 @@ if __name__ == '__main__':
 	sigma = 6   # 高斯分布具有相同的方差
 	mu_r = [40,20]    # 高斯分布的均值 用于产生样本
 	k = 2       # 高斯分布的个数
-	N = 100000    # 样本个数
+	N = 200000    # 样本个数
 	iter_num = 2000 # 最大迭代次数
 	epsilon = 0.0001    # 当两次误差小于这个时退出
 	run(sigma,mu_r,k,N,iter_num,epsilon)  
@@ -84,17 +83,21 @@ if __name__ == '__main__':
 	g = []
 	for i in range(len(Expectations)):
 		g_pre = np.where(Expectations[i,:] == max(Expectations[i]))[0][0]
+		if abs(Expectations[i][0]-Expectations[i][1]) < 0.5:
+			r = np.random.uniform(0,1,1)
+			if max(Expectations[i]) < r :
+				g_pre = np.where(Expectations[i,:] == min(Expectations[i]))[0][0]	
 		guass_pre[g_pre].append(X[0,i])
 	fig,ax = plt.subplots(2,2)
 	for i in range(len(guass_pre)):
 		ax = plt.subplot(2,2,i+3)
 		ax.set_title("Prediction:"+'μ='+str(round(Mu[i],4)))
-		ax.hist(guass_pre[i],1000,facecolor='yellowgreen',alpha=0.75,normed=1)
+		ax.hist(guass_pre[i],2000,facecolor='yellowgreen',alpha=0.75,normed=1)
 		ax.set_xticks(np.linspace(0,60,7))
 	for i in range(len(guass_real)):
 		ax = plt.subplot(2,2,i+1)
 		ax.set_title("Real:"+'μ='+str(round(mu_r[i],4)))
-		ax.hist(guass_real[i],1000,facecolor='red',alpha=0.75,normed=1)
+		ax.hist(guass_real[i],5000,facecolor='red',alpha=0.75,normed=1)
 		ax.set_xticks(np.linspace(0,60,7))
 	fig.subplots_adjust(wspace=0.4,hspace=0.4)
 	plt.show()
