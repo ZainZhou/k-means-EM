@@ -77,5 +77,5 @@ if __name__ == '__main__':
 	epsilon = 0.0001    # 当两次误差小于这个时退出
 	run(sigma,mu1,mu2,k,N,iter_num,epsilon)  
    
-	plt.hist(X[0,:],50)  
+	plt.hist(X[0,:],60)
 	plt.show()

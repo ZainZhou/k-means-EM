@@ -44,6 +44,7 @@ def printResult(vList):
 
 def main():
     data = []
+    epsilon = 0.0001 # 当两次计算后每个中心向量误差小于千分之一时结束
     with open('iris.data.txt') as f:
         for i in f.readlines():
             data.append(i.strip().split(',')[:-1])
@@ -55,7 +56,7 @@ def main():
         m = ComputingCenterVector(vList)
         count = 0
         for i in range(len(m)):
-            if (m[i] == oldCenterVs[i]).all():
+            if sum(abs(m[i]-oldCenterVs[i])) < epsilon:
                 count += 1
             if count == len(m):
                 printResult(vList)
