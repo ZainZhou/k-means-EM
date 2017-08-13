@@ -31,6 +31,16 @@ def ComputingCenterVector(vList):
         i.CalculationDistance(centerVs)
     return centerVs
 
+def printResult(vList):
+    clusterDic = {}
+    for v in vList:
+        if v.cluster not in clusterDic.keys():
+            clusterDic[v.cluster] = []
+        clusterDic[v.cluster].append(v.vector)
+    for key in clusterDic:
+        print('\n'+'聚类'+str(key)+'(数目:'+str(len(clusterDic[key]))+')'+':\n')
+        for i in clusterDic[key]:
+            print(str(i))
 
 def main():
     data = []
@@ -48,10 +58,7 @@ def main():
             if (m[i] == oldCenterVs[i]).all():
                 count += 1
             if count == len(m):
-                for i in vList:
-                    print('向量：', i.vector, '聚类：', i.cluster)
+                printResult(vList)
                 return 1
         oldCenterVs = m
-
-
 main()
