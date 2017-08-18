@@ -84,7 +84,7 @@ def run(Sigma,mu_r,k,N,iter_num,Epsilon):
 			break  
 
 if __name__ == '__main__':
-	sigma = [8,10]   # 高斯分布具有相同的方差
+	sigma = [8,10]   # 生成各高斯分布的标准差
 	mu_r = [40,20]    # 高斯分布的均值 用于产生样本
 	k = 2       # 高斯分布的个数
 	N = 5000    # 样本个数
